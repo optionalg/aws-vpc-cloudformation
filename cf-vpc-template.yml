@@ -7,7 +7,6 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 1f54486b-a47e-4fc9-be83-4781bda0798b
-        
   SUBNETPRIVATETVLAPIUAT:
     Type: 'AWS::EC2::Subnet'
     Properties:
@@ -16,7 +15,6 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: b1cf83c7-72fc-4809-9378-a1222b4f8f65
-        
   SUBNETPUBLICTVLAPIUAT:
     Type: 'AWS::EC2::Subnet'
     Properties:
@@ -25,7 +23,6 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 389f0357-fc7b-40a1-ac4e-2dea7c366c81
-        
   RTBLPUBLICUAT:
     Type: 'AWS::EC2::RouteTable'
     Properties:
@@ -33,7 +30,6 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: b180b2d1-d704-4589-88c1-f6fd27c71027
-        
   RTBLPRIVATEUAT:
     Type: 'AWS::EC2::RouteTable'
     Properties:
@@ -41,7 +37,6 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: ac6491a5-1d6c-43a3-97c1-32758f21dc6f
-        
   NATGWUAT:
     Type: 'AWS::EC2::NatGateway'
     Properties:
@@ -50,7 +45,6 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 798e1db6-d39a-4bfe-ba2b-96e28ec02629
-        
   IGWUAT:
     Type: 'AWS::EC2::InternetGateway'
     Properties:
@@ -60,7 +54,6 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 629c357f-d774-4887-a835-84a0d52974ca
-        
   GATEWAYTOINTERNET:
     Type: 'AWS::EC2::VPCGatewayAttachment'
     Properties:
@@ -69,10 +62,11 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: aa9bd772-64cb-4de1-8121-1ff70e10d522
-        
-  ROUTEUAT:
+  ROUTEPUBLICUAT:
     Type: 'AWS::EC2::Route'
-    DependsOn: GATEWAYTOINTERNET
+    DependsOn:
+      - IGWUAT
+      - GATEWAYTOINTERNET
     Properties:
       RouteTableId: !Ref RTBLPUBLICUAT
       DestinationCidrBlock: 0.0.0.0/0
@@ -80,7 +74,16 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 66bc047a-8848-444d-95ba-1470256f319f
-        
+  ROUTEPRIVATUAT:
+    Type: 'AWS::EC2::Route'
+    DependsOn: NATGWUAT
+    Properties:
+      RouteTableId: !Ref RTBLPRIVATEUAT
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NATGWUAT
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: cb42da2d-0534-4c0e-a38b-d6db096cdac0
   ROUTEPUBSUBNETASSOCIATE:
     Type: 'AWS::EC2::SubnetRouteTableAssociation'
     Properties:
@@ -89,7 +92,6 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 2f17999a-2896-41e0-b699-9ca98cf45d34
-        
   ROUTEPRISUBNETASSOCIATE:
     Type: 'AWS::EC2::SubnetRouteTableAssociation'
     Properties:
@@ -98,27 +100,16 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 9242cb0f-8a01-4661-bd60-728fd52b06e8
-        
-  ROUTEPRIVATEUAT:
-    Type: 'AWS::EC2::Route'
-    Properties:
-      RouteTableId: !Ref RTBLPRIVATEUAT
-      DestinationCidrBlock: 0.0.0.0/0
-      GatewayId: !Ref NATGWUAT
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 646cc8c8-a80f-4ef6-bd5d-96506acf66d5
-        
 Metadata:
   'AWS::CloudFormation::Designer':
     1f54486b-a47e-4fc9-be83-4781bda0798b:
       size:
-        width: 1340
-        height: 500
+        width: 1740
+        height: 1700
       position:
-        x: 360
-        'y': 120
-      z: 0
+        x: 600
+        'y': 700
+      z: 1
       embeds:
         - 629c357f-d774-4887-a835-84a0d52974ca
         - ac6491a5-1d6c-43a3-97c1-32758f21dc6f
@@ -127,55 +118,55 @@ Metadata:
         - b1cf83c7-72fc-4809-9378-a1222b4f8f65
     b1cf83c7-72fc-4809-9378-a1222b4f8f65:
       size:
-        width: 140
-        height: 140
+        width: 960
+        height: 510
       position:
-        x: 504.165751066448
-        'y': 215.67556397203646
-      z: 1
+        x: 660
+        'y': 1010
+      z: 2
       parent: 1f54486b-a47e-4fc9-be83-4781bda0798b
       embeds:
         - 798e1db6-d39a-4bfe-ba2b-96e28ec02629
+        - 66bc047a-8848-444d-95ba-1470256f319f
     389f0357-fc7b-40a1-ac4e-2dea7c366c81:
       size:
-        width: 140
-        height: 140
+        width: 150
+        height: 150
       position:
-        x: 820
-        'y': 230
-      z: 1
+        x: 2040
+        'y': 1430
+      z: 2
       parent: 1f54486b-a47e-4fc9-be83-4781bda0798b
       embeds: []
     b180b2d1-d704-4589-88c1-f6fd27c71027:
       size:
-        width: 140
-        height: 130
+        width: 440
+        height: 380
       position:
-        x: 820
-        'y': 440
-      z: 1
+        x: 1890
+        'y': 930
+      z: 2
       parent: 1f54486b-a47e-4fc9-be83-4781bda0798b
-      embeds:
-        - 66bc047a-8848-444d-95ba-1470256f319f
+      embeds: []
     ac6491a5-1d6c-43a3-97c1-32758f21dc6f:
       size:
-        width: 140
-        height: 140
+        width: 240
+        height: 240
       position:
-        x: 502
-        'y': 413
-      z: 1
+        x: 750
+        'y': 1080
+      z: 2
       parent: 1f54486b-a47e-4fc9-be83-4781bda0798b
       embeds:
-        - 646cc8c8-a80f-4ef6-bd5d-96506acf66d5
+        - cb42da2d-0534-4c0e-a38b-d6db096cdac0
     798e1db6-d39a-4bfe-ba2b-96e28ec02629:
       size:
         width: 60
         height: 60
       position:
-        x: 710
-        'y': 310
-      z: 1
+        x: 890
+        'y': 1370
+      z: 3
       parent: b1cf83c7-72fc-4809-9378-a1222b4f8f65
       embeds: []
       isrelatedto:
@@ -185,9 +176,9 @@ Metadata:
         width: 60
         height: 60
       position:
-        x: 1030
-        'y': 430
-      z: 1
+        x: 1260
+        'y': 1110
+      z: 2
       parent: 1f54486b-a47e-4fc9-be83-4781bda0798b
       embeds: []
     66bc047a-8848-444d-95ba-1470256f319f:
@@ -195,10 +186,10 @@ Metadata:
         width: 60
         height: 60
       position:
-        x: 1028
-        'y': 267
-      z: 1
-      parent: b180b2d1-d704-4589-88c1-f6fd27c71027
+        x: 1280
+        'y': 1320
+      z: 3
+      parent: b1cf83c7-72fc-4809-9378-a1222b4f8f65
       embeds: []
       references:
         - 629c357f-d774-4887-a835-84a0d52974ca
@@ -210,22 +201,22 @@ Metadata:
         id: b180b2d1-d704-4589-88c1-f6fd27c71027
       target:
         id: 389f0357-fc7b-40a1-ac4e-2dea7c366c81
-      z: 1
+      z: 2
     9242cb0f-8a01-4661-bd60-728fd52b06e8:
       source:
         id: ac6491a5-1d6c-43a3-97c1-32758f21dc6f
       target:
         id: b1cf83c7-72fc-4809-9378-a1222b4f8f65
-      z: 1
+      z: 2
     646cc8c8-a80f-4ef6-bd5d-96506acf66d5:
       size:
         width: 60
         height: 60
       position:
-        x: 710
-        'y': 460
+        x: 1250
+        'y': 720
       z: 1
-      parent: ac6491a5-1d6c-43a3-97c1-32758f21dc6f
+      parent: 1f54486b-a47e-4fc9-be83-4781bda0798b
       embeds: []
       references:
         - 798e1db6-d39a-4bfe-ba2b-96e28ec02629
@@ -236,4 +227,20 @@ Metadata:
         id: 629c357f-d774-4887-a835-84a0d52974ca
       target:
         id: 1f54486b-a47e-4fc9-be83-4781bda0798b
-      z: 1
+      z: 2
+    cb42da2d-0534-4c0e-a38b-d6db096cdac0:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 780
+        'y': 1140
+      z: 3
+      parent: ac6491a5-1d6c-43a3-97c1-32758f21dc6f
+      embeds: []
+      references:
+        - 798e1db6-d39a-4bfe-ba2b-96e28ec02629
+      dependson:
+        - 798e1db6-d39a-4bfe-ba2b-96e28ec02629
+      isrelatedto:
+        - 798e1db6-d39a-4bfe-ba2b-96e28ec02629
