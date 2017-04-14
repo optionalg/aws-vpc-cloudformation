@@ -41,7 +41,7 @@ Resources:
     Type: 'AWS::EC2::NatGateway'
     Properties:
       AllocationId: eipalloc-24956d4d
-      SubnetId: !Ref SUBNETPRIVATETVLAPIUAT
+      SubnetId: !Ref SUBNETPUBLICTVLAPIUAT
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 798e1db6-d39a-4bfe-ba2b-96e28ec02629
@@ -125,29 +125,29 @@ Metadata:
         'y': 1010
       z: 2
       parent: 1f54486b-a47e-4fc9-be83-4781bda0798b
-      embeds:
-        - 798e1db6-d39a-4bfe-ba2b-96e28ec02629
-        - 66bc047a-8848-444d-95ba-1470256f319f
+      embeds: []
     389f0357-fc7b-40a1-ac4e-2dea7c366c81:
       size:
         width: 150
         height: 150
       position:
-        x: 2040
+        x: 1940
         'y': 1430
       z: 2
       parent: 1f54486b-a47e-4fc9-be83-4781bda0798b
-      embeds: []
+      embeds:
+        - 798e1db6-d39a-4bfe-ba2b-96e28ec02629
     b180b2d1-d704-4589-88c1-f6fd27c71027:
       size:
         width: 440
         height: 380
       position:
-        x: 1890
-        'y': 930
+        x: 1750
+        'y': 820
       z: 2
       parent: 1f54486b-a47e-4fc9-be83-4781bda0798b
-      embeds: []
+      embeds:
+        - 66bc047a-8848-444d-95ba-1470256f319f
     ac6491a5-1d6c-43a3-97c1-32758f21dc6f:
       size:
         width: 240
@@ -164,10 +164,10 @@ Metadata:
         width: 60
         height: 60
       position:
-        x: 890
+        x: 790
         'y': 1370
       z: 3
-      parent: b1cf83c7-72fc-4809-9378-a1222b4f8f65
+      parent: 389f0357-fc7b-40a1-ac4e-2dea7c366c81
       embeds: []
       isrelatedto:
         - b1cf83c7-72fc-4809-9378-a1222b4f8f65
@@ -186,10 +186,10 @@ Metadata:
         width: 60
         height: 60
       position:
-        x: 1280
-        'y': 1320
+        x: 1140
+        'y': 1210
       z: 3
-      parent: b1cf83c7-72fc-4809-9378-a1222b4f8f65
+      parent: b180b2d1-d704-4589-88c1-f6fd27c71027
       embeds: []
       references:
         - 629c357f-d774-4887-a835-84a0d52974ca
